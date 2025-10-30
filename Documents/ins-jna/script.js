@@ -20,7 +20,10 @@ async function run(event) {
     
     try {
         // Call the backend API
-        const response = await fetch(`http://localhost:3000/api/search?phone=${encodeURIComponent(phoneNumber)}`);
+        const apiUrl = window.location.hostname === 'localhost' 
+            ? `http://localhost:3000/api/search?phone=${encodeURIComponent(phoneNumber)}`
+            : `/api/search?phone=${encodeURIComponent(phoneNumber)}`;
+        const response = await fetch(apiUrl);
         const data = await response.json();
         
         if (data.success) {
